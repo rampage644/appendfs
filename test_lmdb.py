@@ -3,10 +3,9 @@
 
 import os
 import unittest
-import subprocess
 
 # relative mount point
-MOUNT_POINT = 'fs'
+MOUNT_POINT = os.path.join(os.getcwd(), 'fs')
 
 
 class LMDBFilesystemTest(unittest.TestCase):
@@ -16,8 +15,4 @@ class LMDBFilesystemTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    subprocess.check_output(['python', 'lmdb.py', MOUNT_POINT])
-    try:
-        unittest.main()
-    finally:
-        subprocess.check_call(['fusermount', '-u', MOUNT_POINT])
+    unittest.main()

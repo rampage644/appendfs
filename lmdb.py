@@ -3,6 +3,10 @@
 
 import errno
 import fuse
+import logging
+
+LOG_FILENAME = "LOG"
+logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO,)
 
 
 class MyStat(fuse.Stat):
@@ -20,16 +24,22 @@ class MyStat(fuse.Stat):
 
 
 class LMDBFileSystem(fuse.Fuse):
+    def __init__(self, *args, **kwargs):
+        super(LMDBFileSystem, self).__init__(*args, **kwargs)
+
     def getattr(self, path):
         return -errno.ENOSYS
 
     def access(self, path, mode):
         return -errno.ENOSYS
 
-    def readir(self, path, offset):
-        return -errno.ENOSYS
+    def readdir(self, path, offset):
+        logging.info("readdir %s, %d" % (path, offset))
+        yield fuse.Direntry('.')
+        yield fuse.Direntry('..')
 
-    def open(self, path, flgas):
+    def open(self, path, flags):
+        logging.info("open %s, %d" % (path, flags))
         return -errno.ENOSYS
 
     def write(self, path, buf, offset):
