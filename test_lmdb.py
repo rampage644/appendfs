@@ -9,9 +9,6 @@ MOUNT_POINT = 'fs'
 
 
 class LMDBFilesystemTest(unittest.TestCase):
-    def testDirectoryListing(self):
-        pass
-
     def testFileCreation(self):
         with open(os.path.join(MOUNT_POINT, 'testfile'), 'w') as wfile:
             pass
